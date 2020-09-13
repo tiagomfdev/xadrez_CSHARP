@@ -10,7 +10,7 @@ namespace Game.Tela
             {
                 for (int colunas = 0; colunas < tabuleiro.Colunas; colunas++)
                 {
-                    string strPeca = tabuleiro.Peca(linhas, colunas) == null ? "- " : tabuleiro.Peca(linhas, colunas).ToString();
+                    string strPeca = tabuleiro.Peca(linhas, colunas) == null ? "- " : tabuleiro.Peca(linhas, colunas).ToString() + " ";
                     System.Console.Write(strPeca);
                 }
                 System.Console.WriteLine();
