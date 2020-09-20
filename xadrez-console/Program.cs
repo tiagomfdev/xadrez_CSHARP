@@ -22,11 +22,8 @@ namespace xadrez_console
                     try
                     {
                         Console.Clear();
-                        Tela.ImprimirTabuleiro(partidaDeXadrez.Tabuleiro);
 
-                        Console.WriteLine();
-                        Console.WriteLine("Turno: " + partidaDeXadrez.Turno);
-                        Console.WriteLine("Aguardando Jogada: " + partidaDeXadrez.JogadorAtual);
+                        Tela.ImprimirPartida(partidaDeXadrez);
 
                         Console.WriteLine();
                         Console.Write("Origem: ");

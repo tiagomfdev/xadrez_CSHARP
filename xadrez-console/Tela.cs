@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using Xadrez.Tabuleiro;
 using Xadrez.Tabuleiro.Enums;
 using xadrez_console.JogoXadrez;
@@ -7,6 +8,50 @@ namespace Game.Tela
 {
     class Tela
     {
+        public static void ImprimirPartida(PartidaDeXadrez partidaDeXadrez)
+        {
+            Tela.ImprimirTabuleiro(partidaDeXadrez.Tabuleiro);
+
+            Console.WriteLine();
+            ImprimiPecasCapturadas(partidaDeXadrez);
+
+            Console.WriteLine();
+            Console.WriteLine("Turno: " + partidaDeXadrez.Turno);
+            Console.WriteLine("Aguardando Jogada: " + partidaDeXadrez.JogadorAtual);
+        }
+
+        public static void ImprimiPecasCapturadas(PartidaDeXadrez partidaDeXadrez)
+        {
+            Console.WriteLine("Pecas capturadas: ");
+
+            Console.Write("Brancas: ");
+            ImprimirConjunto(partidaDeXadrez.PecasCapturadas(Cor.Branca));
+
+            Console.WriteLine();
+
+            ConsoleColor corOriginal = Console.ForegroundColor;
+            Console.ForegroundColor = ConsoleColor.Yellow;
+
+            Console.Write("Pretas: ");
+            ImprimirConjunto(partidaDeXadrez.PecasCapturadas(Cor.Preta));
+
+            Console.ForegroundColor = corOriginal;
+
+            Console.WriteLine();
+        }
+
+        public static void ImprimirConjunto(HashSet<Peca> conjunto)
+        {
+            Console.Write("[");
+
+            foreach(Peca peca in conjunto)
+            {
+                Console.Write(peca + " ");
+            }
+
+            Console.Write("] ");
+        }
+
         public static void ImprimirTabuleiro(Tabuleiro tabuleiro)
         {
             for (int linhas = 0; linhas < tabuleiro.Linhas; linhas++)
