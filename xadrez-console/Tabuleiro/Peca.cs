@@ -22,6 +22,12 @@ namespace Xadrez.Tabuleiro
         {
             QtdeMovimentos++;
         }
+
+        public void DecrementarQdteMovimentos()
+        {
+            QtdeMovimentos--;
+        }
+
         protected bool PodeMover(Posicao posicao)
         {
             Peca peca = Tabuleiro.Peca(posicao);

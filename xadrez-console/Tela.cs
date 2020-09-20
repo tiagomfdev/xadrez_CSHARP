@@ -18,6 +18,11 @@ namespace Game.Tela
             Console.WriteLine();
             Console.WriteLine("Turno: " + partidaDeXadrez.Turno);
             Console.WriteLine("Aguardando Jogada: " + partidaDeXadrez.JogadorAtual);
+
+            if (partidaDeXadrez.Xeque)
+            {
+                Console.WriteLine("Xeque!");
+            }
         }
 
         public static void ImprimiPecasCapturadas(PartidaDeXadrez partidaDeXadrez)
