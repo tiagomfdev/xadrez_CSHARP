@@ -1,4 +1,5 @@
 ﻿using Xadrez.Tabuleiro.Enums;
+using Xadrez.Tabuleiro.Exceptions;
 
 namespace Xadrez.Tabuleiro
 {
@@ -25,6 +26,29 @@ namespace Xadrez.Tabuleiro
         {
             Peca peca = Tabuleiro.Peca(posicao);
             return peca == null || peca.Cor != Cor;
+        }
+
+        public bool ExisteMoivimentosPossiveis()
+        {
+            bool[,] mat = MovimentosPossiveis();
+            
+            for(int linhas=0; linhas<Tabuleiro.Linhas; linhas++)
+            {
+                for (int colunas = 0; colunas < Tabuleiro.Colunas; colunas++)
+                {
+                    if (mat[linhas, colunas])
+                    {
+                        return true;
+                    }
+                }
+            }
+
+            return false;
+        }
+
+        public bool PodeMoverPara(Posicao posicao)
+        {
+            return MovimentosPossiveis()[posicao.Linha, posicao.Coluna];
         }
 
         public abstract bool[,] MovimentosPossiveis();
