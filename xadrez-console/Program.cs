@@ -22,7 +22,6 @@ namespace xadrez_console
                     try
                     {
                         Console.Clear();
-
                         Tela.ImprimirPartida(partidaDeXadrez);
 
                         Console.WriteLine();
@@ -55,6 +54,8 @@ namespace xadrez_console
                     }
                 }
 
+                Console.Clear();
+                Tela.ImprimirPartida(partidaDeXadrez);
 
             }
             catch (TabuleiroException e)

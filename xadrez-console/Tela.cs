@@ -17,12 +17,25 @@ namespace Game.Tela
 
             Console.WriteLine();
             Console.WriteLine("Turno: " + partidaDeXadrez.Turno);
-            Console.WriteLine("Aguardando Jogada: " + partidaDeXadrez.JogadorAtual);
 
-            if (partidaDeXadrez.Xeque)
+            if (!partidaDeXadrez.Terminada)
             {
-                Console.WriteLine("Xeque!");
+
+                Console.WriteLine("Aguardando Jogada: " + partidaDeXadrez.JogadorAtual);
+
+                if (partidaDeXadrez.Xeque)
+                {
+                    Console.WriteLine("Xeque!");
+                }
+
             }
+            else
+            {
+                Console.WriteLine("XEQUEMATE!");
+                Console.WriteLine("Vencedor: " + partidaDeXadrez.JogadorAtual);
+            }
+
+
         }
 
         public static void ImprimiPecasCapturadas(PartidaDeXadrez partidaDeXadrez)
@@ -49,7 +62,7 @@ namespace Game.Tela
         {
             Console.Write("[");
 
-            foreach(Peca peca in conjunto)
+            foreach (Peca peca in conjunto)
             {
                 Console.Write(peca + " ");
             }
