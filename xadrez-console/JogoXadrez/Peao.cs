@@ -1,13 +1,16 @@
 ﻿using Xadrez.Tabuleiro;
 using Xadrez.Tabuleiro.Enums;
+using xadrez_console.JogoXadrez;
 
 namespace JogoXadrez
 {
     class Peao : Peca
     {
+        private PartidaDeXadrez PartidaDeXadrez;
 
-        public Peao(Cor cor, Tabuleiro tabuleiro) : base(cor, tabuleiro)
+        public Peao(Cor cor, Tabuleiro tabuleiro, PartidaDeXadrez partidaDeXadrez) : base(cor, tabuleiro)
         {
+            PartidaDeXadrez = partidaDeXadrez;
         }
 
         public override string ToString()
@@ -33,10 +36,10 @@ namespace JogoXadrez
 
             Posicao posicao = new Posicao(0, 0);
 
-            if(Cor == Cor.Branca)
+            if (Cor == Cor.Branca)
             {
                 posicao.definirValores(Posicao.Linha - 1, Posicao.Coluna);
-                if(Tabuleiro.PosicaoValida(posicao) && Livre(posicao))
+                if (Tabuleiro.PosicaoValida(posicao) && Livre(posicao))
                 {
                     mat[posicao.Linha, posicao.Coluna] = true;
                 }
@@ -54,6 +57,23 @@ namespace JogoXadrez
                 if (Tabuleiro.PosicaoValida(posicao) && ExisteInimigo(posicao))
                 {
                     mat[posicao.Linha, posicao.Coluna] = true;
+                }
+
+                // #jogadaespecial en passant
+                if (Posicao.Linha == 3)
+                {
+                    Posicao esquerda = new Posicao(Posicao.Linha, Posicao.Coluna - 1);
+                    if (Tabuleiro.PosicaoValida(esquerda) && ExisteInimigo(esquerda) && Tabuleiro.Peca(esquerda) == PartidaDeXadrez.VulneravelEnPassant)
+                    {
+                        mat[esquerda.Linha - 1, esquerda.Coluna] = true;
+                    }
+
+                    Posicao direita = new Posicao(Posicao.Linha, Posicao.Coluna + 1);
+                    if (Tabuleiro.PosicaoValida(direita) && ExisteInimigo(direita) && Tabuleiro.Peca(direita) == PartidaDeXadrez.VulneravelEnPassant)
+                    {
+                        mat[direita.Linha - 1, direita.Coluna] = true;
+                    }
+
                 }
             }
             else
@@ -78,6 +98,24 @@ namespace JogoXadrez
                 {
                     mat[posicao.Linha, posicao.Coluna] = true;
                 }
+
+                // #jogadaespecial en passant
+                if (Posicao.Linha == 4)
+                {
+                    Posicao esquerda = new Posicao(Posicao.Linha, Posicao.Coluna - 1);
+                    if (Tabuleiro.PosicaoValida(esquerda) && ExisteInimigo(esquerda) && Tabuleiro.Peca(esquerda) == PartidaDeXadrez.VulneravelEnPassant)
+                    {
+                        mat[esquerda.Linha + 1, esquerda.Coluna] = true;
+                    }
+
+                    Posicao direita = new Posicao(Posicao.Linha, Posicao.Coluna + 1);
+                    if (Tabuleiro.PosicaoValida(direita) && ExisteInimigo(direita) && Tabuleiro.Peca(direita) == PartidaDeXadrez.VulneravelEnPassant)
+                    {
+                        mat[direita.Linha + 1, direita.Coluna] = true;
+                    }
+
+                }
+
             }
 
             return mat;
