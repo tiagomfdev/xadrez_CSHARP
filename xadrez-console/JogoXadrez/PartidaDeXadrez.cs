@@ -183,7 +183,7 @@ namespace xadrez_console.JogoXadrez
             // #jogadaespecial en passant
             if (peca is Peao)
             {
-                if(origem.Coluna != destino.Coluna && pecaCapturada == null)
+                if (origem.Coluna != destino.Coluna && pecaCapturada == null)
                 {
                     Posicao posicaoPeao;
                     if (peca.Cor == Cor.Branca)
@@ -214,6 +214,24 @@ namespace xadrez_console.JogoXadrez
                 throw new TabuleiroException("Voce nao pode se colocar em xeque!");
             }
 
+            Peca pecaJogada = Tabuleiro.Peca(destino);
+
+            // #jogadaespecial promocao
+            if (pecaJogada is Peao)
+            {
+                if ((pecaJogada.Cor == Cor.Branca && destino.Linha == 0) ||
+                    (pecaJogada.Cor == Cor.Preta && destino.Linha == 7))
+                {
+                    Peca pecaPromovida = Tabuleiro.RetirarPeca(destino);
+                    Pecas.Remove(pecaPromovida);
+                    Peca dama = new Dama(pecaPromovida.Cor, Tabuleiro);
+                    Tabuleiro.ColocarPeca(dama, destino);
+                    Pecas.Add(dama);
+                }
+            }
+
+
+
             Xeque = EstaEmXeque(Adversaria(JogadorAtual));
             Terminada = EstaEmXequeMate(Adversaria(JogadorAtual));
 
@@ -223,7 +241,7 @@ namespace xadrez_console.JogoXadrez
                 MudaJogador();
             }
 
-            Peca pecaJogada = Tabuleiro.Peca(destino);
+
 
             // #jogadaespecial en passant
             if (pecaJogada is Peao && (destino.Linha == origem.Linha - 2 || destino.Linha == origem.Linha + 2))
@@ -307,7 +325,7 @@ namespace xadrez_console.JogoXadrez
             // #jogadaespecial en passant
             if (peca is Peao)
             {
-                if(origem.Coluna != destino.Coluna && pecaCapturada == VulneravelEnPassant)
+                if (origem.Coluna != destino.Coluna && pecaCapturada == VulneravelEnPassant)
                 {
                     Peca peao = Tabuleiro.RetirarPeca(destino);
                     Posicao posicaoPeao;
